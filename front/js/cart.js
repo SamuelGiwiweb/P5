@@ -65,14 +65,13 @@ const removeProduct = async (displayCart) => {
   deleteItem.forEach((trash) => {
     trash.addEventListener("click", () => {
       const article = trash.closest(".cart__item");
-        const [id, color] = [article.dataset.id, article.dataset.color];
+      const [id, color] = [article.dataset.id, article.dataset.color];
       if (addProduct.length === 1) {
         localStorage.removeItem(localDataName);
         cartItems.removeChild(article);
         totalPrice.textContent = "";
-    totalQuantity.textContent = "";
+        totalQuantity.textContent = "";
       } else {
-        
         const index = addProduct.findIndex(
           (el) => el._id === id && el.color === color
         );
@@ -84,7 +83,7 @@ const removeProduct = async (displayCart) => {
       }
     });
   });
-  
+
   return;
 };
 
@@ -124,8 +123,78 @@ const totalArticles = async (displayCart) => {
   });
   console.log(nbArticles);
   return (
-    totalPrice.textContent = total.reduce((acc, el) => acc + el),
-    totalQuantity.textContent = nbArticles.reduce((acc, el) => acc + el)
-    );
-   
+    (totalPrice.textContent = total.reduce((acc, el) => acc + el)),
+    (totalQuantity.textContent = nbArticles.reduce((acc, el) => acc + el))
+  );
 };
+
+// form
+
+const form = document.querySelector(".cart__order__form");
+
+const getInfos = (e) => {
+  e.preventDefault();
+  const nameRegex = /^[a-z A-Z]{3,20}$/;
+  if (
+    !(
+      formError(
+        nameRegex,
+        `${form.firstName.name} n'est pas valide`,
+        form.firstName,
+        firstNameErrorMsg
+      ) ||
+      formError(
+        nameRegex,
+        `${form.lastName.name} n'est pas valide`,
+        form.lastName,
+        lastNameErrorMsg
+      ) ||
+      formError(
+        /^[0-9]{1,4} [a-z A-Z 0-9 \,]{10,50}$/,
+        `${form.address.name} n'est pas valide`,
+        form.address,
+        addressErrorMsg
+      ) ||
+      formError(
+        /^[a-z A-Z 0-9 \-]{3,30}$/,
+        `${form.city.name} n'est pas valide`,
+        form.city,
+        cityErrorMsg
+      ) ||
+      formError(
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/,
+        `${form.email.name} n'est pas valide`,
+        form.email,
+        emailErrorMsg
+      )
+    )
+  ) {
+    // const contact = Object.assign({}, form, addProduct);
+    const contact = {
+      firstName: form.firstName,
+      lastName: form.lastName,
+      address: form.address,
+      city: form.city,
+      email: form.email,
+      productID: []
+    }
+
+    addProduct.forEach((id) => {
+      contact.productID.push(id._id)
+    })
+    console.log(
+       contact.productID
+    );
+  } 
+};
+
+form.addEventListener("submit", getInfos);
+
+const formError = (regex, msg, input, output) => {
+  output.textContent = "";
+  return (output.textContent = input.value.match(regex) ? "" : msg);
+};
+// const order = document.getElementById('order');
+
+//   const formData = new FormData(form);
+// console.log(formData);
