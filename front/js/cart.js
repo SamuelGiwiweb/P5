@@ -170,21 +170,52 @@ const getInfos = (e) => {
     )
   ) {
     // const contact = Object.assign({}, form, addProduct);
-    const contact = {
-      firstName: form.firstName,
-      lastName: form.lastName,
-      address: form.address,
-      city: form.city,
-      email: form.email,
-      productID: []
-    }
-
-    addProduct.forEach((id) => {
-      contact.productID.push(id._id)
+    const prouductsArray = [];
+     addProduct.forEach((id) => {
+      prouductsArray.push(id._id)
     })
-    console.log(
-       contact.productID
-    );
+    const data = {
+      contact: {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        address: form.address.value,
+        city: form.city.value,
+        email: form.email.value,  
+      },
+
+      products: prouductsArray
+    }
+  //   const contact = {
+  //     firstName: form.firstName.value,
+  //     lastName: form.lastName.value,
+  //     address: form.address.value,
+  //     city: form.city.value,
+  //     email: form.email.value,  
+  //   }
+
+  //   const products = [];
+  //   addProduct.forEach((id) => {
+  //     products.push(id._id)
+  //   })
+  //   console.log(
+  //     contact
+  //  );
+  //   console.log(
+  //      products
+  //   );
+    
+    
+console.log(data);
+    // en cours fetch post
+    fetch("http://127.0.0.1:3000/api/products/order", {
+      method: 'POST',
+      headers: {'Accept': 'application/json', 
+      'Content-Type': 'application/json'  },
+      body: JSON.stringify(data)
+    }).then(res => res.json()).then(promise => {
+      const serverResponse = promise;
+      console.log("rep :", serverResponse);
+    })
   } 
 };
 
