@@ -8,15 +8,6 @@ let orderSent =  JSON.parse(localStorage.getItem(localOrderSent));
 
 // functions
 
-// const setProductFromApi = async () => {
-//   await fetch(`http://127.0.0.1:3000/api/products/${addProduct.id}`)
-//     .then((res) => res.json())
-//     .then((product) => {
-//       productData = product;
-//       // console.log("produit : ", productData);
-//     });
-// };
-
 const displayCart = async () => {
   if (addProduct) {
     await addProduct;
@@ -123,7 +114,6 @@ const totalArticles = async (displayCart) => {
     total.push(el.price * parseInt(el.quantity));
     nbArticles.push(parseInt(el.quantity));
   });
-  console.log(nbArticles);
   return (
     (totalPrice.textContent = total.reduce((acc, el) => acc + el)),
     (totalQuantity.textContent = nbArticles.reduce((acc, el) => acc + el))
@@ -188,8 +178,7 @@ const getInfos = (e) => {
       products: prouductsArray
     }
    
-console.log(data);
-    // en cours fetch post
+    // fetch post
     fetch("http://127.0.0.1:3000/api/products/order", {
       method: 'POST',
       headers: {'Accept': 'application/json', 
@@ -197,10 +186,8 @@ console.log(data);
       body: JSON.stringify(data)
     }).then(res => res.json()).then(promise => {
       const serverResponse = promise;
-      console.log("rep :", serverResponse);
       if(orderSent === null){
         orderSent = [serverResponse.orderId];
-        console.log(orderSent);
         localStorage.setItem(localOrderSent, JSON.stringify(orderSent));
          localStorage.removeItem(localDataName);
         window.location.href = "confirmation.html";
