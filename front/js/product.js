@@ -19,7 +19,6 @@ const setProductFromApi = async () => {
     .then((res) => res.json())
     .then((product) => {
       productData = product;
-      // console.log("produit : ", productData);
     });
 };
 
@@ -63,7 +62,6 @@ const addToCart = () => {
       quantity: parseInt(quantity.value, 10),
       color: color.value,
     });
-    // console.log("prodlist",productToLocalStorage);
     if (productToLocalStorage.color) {
       if (productsList == null) {
         productsList = [];
@@ -79,8 +77,7 @@ const addToCart = () => {
             return (
               productsList[i].quantity++,
               localStorage.setItem(localDataName, JSON.stringify(productsList)),
-              productsList = JSON.parse(localStorage.getItem(localDataName)),
-              console.log("qt++")
+              productsList = JSON.parse(localStorage.getItem(localDataName))
             );
           } 
         }
@@ -90,7 +87,7 @@ const addToCart = () => {
             productsList[i].color !== productToLocalStorage.color ||
             productsList[i]._id !== productData._id ){
               
-              return (console.log("newby"),
+              return (
                 productsList.push(productToLocalStorage),
                 localStorage.setItem(localDataName, JSON.stringify(productsList)),
               productsList = JSON.parse(localStorage.getItem(localDataName))
@@ -98,11 +95,12 @@ const addToCart = () => {
             }
         }
       }
+      
     }else{
       errorInfo("Choissez une couleur!", "colors", "span");
     }
   });
-  return (productList = JSON.parse(localStorage.getItem(localDataName)));
+  return (productList = JSON.parse(localStorage.getItem(localDataName)), errorInfo("", "colors", "span"));
 };
 
 /**
