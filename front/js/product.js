@@ -97,22 +97,10 @@ const addToCart = () => {
       }
       
     }else{
-      errorInfo("Choissez une couleur!", "colors", "span");
+      alert('Veuillez choisir une couleur')
     }
   });
-  return (productList = JSON.parse(localStorage.getItem(localDataName)), errorInfo("", "colors", "span"));
+  return (productList = JSON.parse(localStorage.getItem(localDataName)) );
 };
 
-/**
- * Renvoie une erreur dans une balise html
- * @param {string} msg
- * @param {string} parent
- * @param {string} el
- */
-const errorInfo = (msg, parent, el) => {
-  const info = document.createElement(el);
-  info.textContent = msg;
-  info.style.color = "red";
-  const id = document.getElementById(parent).getAttribute("id");
-  document.getElementById(id).insertAdjacentElement("afterend", info);
-};
+
