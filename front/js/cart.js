@@ -1,8 +1,10 @@
 // Variables
 const localDataName = "productsInCart";
+const localOrderSent = "order";
 const cartItems = document.getElementById("cart__items");
 
 let addProduct = JSON.parse(localStorage.getItem(localDataName));
+let orderSent =  JSON.parse(localStorage.getItem(localOrderSent));
 
 // functions
 
@@ -185,26 +187,7 @@ const getInfos = (e) => {
 
       products: prouductsArray
     }
-  //   const contact = {
-  //     firstName: form.firstName.value,
-  //     lastName: form.lastName.value,
-  //     address: form.address.value,
-  //     city: form.city.value,
-  //     email: form.email.value,  
-  //   }
-
-  //   const products = [];
-  //   addProduct.forEach((id) => {
-  //     products.push(id._id)
-  //   })
-  //   console.log(
-  //     contact
-  //  );
-  //   console.log(
-  //      products
-  //   );
-    
-    
+   
 console.log(data);
     // en cours fetch post
     fetch("http://127.0.0.1:3000/api/products/order", {
@@ -215,6 +198,14 @@ console.log(data);
     }).then(res => res.json()).then(promise => {
       const serverResponse = promise;
       console.log("rep :", serverResponse);
+      if(orderSent === null){
+        orderSent = [serverResponse.orderId];
+        console.log(orderSent);
+        localStorage.setItem(localOrderSent, JSON.stringify(orderSent));
+         localStorage.removeItem(localDataName);
+        window.location.href = "confirmation.html";
+
+      }
     })
   } 
 };
@@ -225,7 +216,4 @@ const formError = (regex, msg, input, output) => {
   output.textContent = "";
   return (output.textContent = input.value.match(regex) ? "" : msg);
 };
-// const order = document.getElementById('order');
 
-//   const formData = new FormData(form);
-// console.log(formData);
