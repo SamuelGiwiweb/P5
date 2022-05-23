@@ -57,11 +57,19 @@ const addToCart = () => {
     const quantity = document.getElementById("quantity");
     let productsList = JSON.parse(localStorage.getItem(localDataName));
 
-    const productToLocalStorage = Object.assign({}, productData, {
-      _id: productData._id,
-      quantity: parseInt(quantity.value, 10),
-      color: color.value,
-    });
+    // const productToLocalStorage = Object.assign({}, productData, {
+    //   _id: productData._id,
+    //   quantity: parseInt(quantity.value, 10),
+    //   color: color.value
+    // });
+    const productToLocalStorage = {
+      ...productData,
+      ...{
+        _id: productData._id,
+        quantity: parseInt(quantity.value, 10),
+        color: color.value,
+      },
+    };
     if (productToLocalStorage.color) {
       if (productsList == null) {
         productsList = [];
@@ -77,30 +85,28 @@ const addToCart = () => {
             return (
               productsList[i].quantity++,
               localStorage.setItem(localDataName, JSON.stringify(productsList)),
-              productsList = JSON.parse(localStorage.getItem(localDataName))
+              (productsList = JSON.parse(localStorage.getItem(localDataName)))
             );
-          } 
+          }
         }
 
-        for (i = 0; i < productsList.length; i++){
-          if(productsList[i]._id === productData._id &&
-            productsList[i].color !== productToLocalStorage.color ||
-            productsList[i]._id !== productData._id ){
-              
-              return (
-                productsList.push(productToLocalStorage),
-                localStorage.setItem(localDataName, JSON.stringify(productsList)),
-              productsList = JSON.parse(localStorage.getItem(localDataName))
-              );
-            }
+        for (i = 0; i < productsList.length; i++) {
+          if (
+            (productsList[i]._id === productData._id &&
+              productsList[i].color !== productToLocalStorage.color) ||
+            productsList[i]._id !== productData._id
+          ) {
+            return (
+              productsList.push(productToLocalStorage),
+              localStorage.setItem(localDataName, JSON.stringify(productsList)),
+              (productsList = JSON.parse(localStorage.getItem(localDataName)))
+            );
+          }
         }
       }
-      
-    }else{
-      alert('Veuillez choisir une couleur')
+    } else {
+      alert("Veuillez choisir une couleur");
     }
   });
-  return (productList = JSON.parse(localStorage.getItem(localDataName)) );
+  return (productList = JSON.parse(localStorage.getItem(localDataName)));
 };
-
-
