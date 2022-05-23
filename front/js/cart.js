@@ -59,7 +59,7 @@ displayCart();
 
 /**
  * Supprimer un produit du panier
- * @param {*} displayCart affichage dynamique 
+ * @param {*} displayCart promise
  */
 const removeProduct = async (displayCart) => {
   
@@ -89,6 +89,10 @@ const removeProduct = async (displayCart) => {
 
 };
 
+/**
+ * modifie les quantités de produit
+ * @param {*} displayCart promise
+ */
 const modifyQuantity = async (displayCart) => {
   await displayCart;
   let modify = document.querySelectorAll(".itemQuantity");
@@ -104,9 +108,9 @@ const modifyQuantity = async (displayCart) => {
           return (
             (i.quantity = item.value),
             localStorage.setItem(localDataName, JSON.stringify(addProduct)),
-            (totalPriceUpdate.textContent = `${
+            totalPriceUpdate.textContent = `${
               parseInt(i.quantity) * i.price
-            } €`),
+            } €`,
             totalArticles()
           );
         }
@@ -115,6 +119,11 @@ const modifyQuantity = async (displayCart) => {
   });
 };
 
+/**
+ * gère le prix et le nombre total de produit du panier
+ * @param {*} displayCart promise
+ * @returns {Int, Int} prix total et nombre total d'article dans le panier
+ */
 const totalArticles = async (displayCart) => {
   await displayCart;
   const total = [];
@@ -124,8 +133,8 @@ const totalArticles = async (displayCart) => {
     nbArticles.push(parseInt(el.quantity));
   });
   return (
-    (totalPrice.textContent = total.reduce((acc, el) => acc + el)),
-    (totalQuantity.textContent = nbArticles.reduce((acc, el) => acc + el))
+    totalPrice.textContent = total.reduce((acc, el) => acc + el),
+    totalQuantity.textContent = nbArticles.reduce((acc, el) => acc + el)
   );
 };
 
