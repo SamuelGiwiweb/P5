@@ -142,9 +142,13 @@ const totalArticles = async (displayCart) => {
 
 const form = document.querySelector(".cart__order__form");
 
+/**
+ * verifie et recupère les datas du formulaire
+ * @param {*} e event
+ */
 const getInfos = (e) => {
   e.preventDefault();
-  const nameRegex = /^[a-z A-Z]{3,20}$/;
+  const nameRegex = /^[a-z A-Z \s -]{3,20}$/;
   if (
     !(
       formError(
@@ -179,7 +183,6 @@ const getInfos = (e) => {
       )
     )
   ) {
-    // const contact = Object.assign({}, form, addProduct);
     const prouductsArray = [];
      addProduct.forEach((id) => {
       prouductsArray.push(id._id)
