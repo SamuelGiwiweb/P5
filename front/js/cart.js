@@ -8,6 +8,10 @@ let orderSent =  JSON.parse(localStorage.getItem(localOrderSent));
 
 // functions
 
+
+/**
+ * Affiche le panier
+ */
 const displayCart = async () => {
   if (addProduct) {
     await addProduct;
@@ -52,7 +56,13 @@ const displayCart = async () => {
 
 displayCart();
 
+
+/**
+ * Supprimer un produit du panier
+ * @param {*} displayCart affichage dynamique 
+ */
 const removeProduct = async (displayCart) => {
+  
   await displayCart;
   const deleteItem = document.querySelectorAll(".deleteItem");
   deleteItem.forEach((trash) => {
@@ -77,7 +87,6 @@ const removeProduct = async (displayCart) => {
     });
   });
 
-  return;
 };
 
 const modifyQuantity = async (displayCart) => {
