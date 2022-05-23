@@ -83,7 +83,7 @@ const addToCart = () => {
             productsList[i].color === productToLocalStorage.color
           ) {
             return (
-              productsList[i].quantity++,
+              productsList[i].quantity += parseInt(quantity.value, 10),
               localStorage.setItem(localDataName, JSON.stringify(productsList)),
               (productsList = JSON.parse(localStorage.getItem(localDataName)))
             );
