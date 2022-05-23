@@ -186,7 +186,7 @@ const getInfos = (e) => {
     const prouductsArray = [];
      addProduct.forEach((id) => {
       prouductsArray.push(id._id)
-    })
+    });
     const data = {
       contact: {
         firstName: form.firstName.value,
@@ -199,7 +199,10 @@ const getInfos = (e) => {
       products: prouductsArray
     }
    
-    // fetch post
+    /**
+     * requete post, stock le numéro de commande dans le local storage et redirige vers la page de confirmation
+     * supprime le panier du local storage
+     */
     fetch("http://127.0.0.1:3000/api/products/order", {
       method: 'POST',
       headers: {'Accept': 'application/json', 
