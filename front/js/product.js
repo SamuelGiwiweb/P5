@@ -85,7 +85,7 @@ const addToCart = () => {
             return (
               productsList[i].quantity += parseInt(quantity.value, 10),
               localStorage.setItem(localDataName, JSON.stringify(productsList)),
-              (productsList = JSON.parse(localStorage.getItem(localDataName)))
+              productsList = JSON.parse(localStorage.getItem(localDataName))
             );
           }
         }
@@ -99,7 +99,7 @@ const addToCart = () => {
             return (
               productsList.push(productToLocalStorage),
               localStorage.setItem(localDataName, JSON.stringify(productsList)),
-              (productsList = JSON.parse(localStorage.getItem(localDataName)))
+              productsList = JSON.parse(localStorage.getItem(localDataName))
             );
           }
         }
@@ -108,5 +108,5 @@ const addToCart = () => {
       alert("Veuillez choisir une couleur");
     }
   });
-  return (productList = JSON.parse(localStorage.getItem(localDataName)));
+  return productList = JSON.parse(localStorage.getItem(localDataName));
 };
