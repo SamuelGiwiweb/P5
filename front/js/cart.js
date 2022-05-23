@@ -223,6 +223,14 @@ const getInfos = (e) => {
 
 form.addEventListener("submit", getInfos);
 
+/**
+ * 
+ * @param {*} regex formule de regex
+ * @param {string} msg message d'erreur
+ * @param {string} input valeur de l'input du formulaire
+ * @param {HTMLElement} output element html du message d'erreur 
+ * @returns {string} message d'erreur ou chaine vide
+ */
 const formError = (regex, msg, input, output) => {
   output.textContent = "";
   return (output.textContent = input.value.match(regex) ? "" : msg);
