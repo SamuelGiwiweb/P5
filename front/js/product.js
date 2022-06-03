@@ -70,6 +70,8 @@ const addToCart = () => {
         color: color.value,
       },
     };
+
+    // envoie du produit dans le localstorage
     if (productToLocalStorage.color) {
       if (productsList == null) {
         productsList = [];
@@ -77,6 +79,7 @@ const addToCart = () => {
 
         localStorage.setItem(localDataName, JSON.stringify(productsList));
       } else if (productsList != null) {
+        //si produit déjà present
         for (i = 0; i < productsList.length; i++) {
           if (
             productsList[i]._id === productData._id &&
@@ -91,6 +94,7 @@ const addToCart = () => {
         }
 
         for (i = 0; i < productsList.length; i++) {
+          // si nouveau produit
           if (
             (productsList[i]._id === productData._id &&
               productsList[i].color !== productToLocalStorage.color) ||

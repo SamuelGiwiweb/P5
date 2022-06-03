@@ -103,6 +103,7 @@ const modifyQuantity = async (displayCart) => {
       const totalPriceUpdate =
         article.childNodes[3].childNodes[1].lastElementChild;
 
+        //iteration sur les produits provenant du localstorage
       for (let i of addProduct) {
         if (i._id === id && i.color === color) {
           return (
